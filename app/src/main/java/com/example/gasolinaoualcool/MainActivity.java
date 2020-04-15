@@ -23,7 +23,38 @@ public class MainActivity extends AppCompatActivity {
         resultado = findViewById(R.id.resultado);
     }
 
-    public void calcularPreco(View view){
-        
+    public void calculaPreco(View view){
+        String alcool = precoAlcool.getText().toString();
+        String gasolina = precoGasolina.getText().toString();
+
+        Boolean resultadoValidacao = validarCampos(alcool, gasolina);
+        if( resultadoValidacao == true){
+
+            Double valorAlcool  = Double.parseDouble(alcool);
+            Double valorGasolina = Double.parseDouble(gasolina);
+
+            Double resultadoCalculo = valorAlcool / valorGasolina;
+            if(resultadoCalculo >= 0.7){
+                resultado.setText("Melhor utilizar Gasolina");
+            }else{
+                resultado.setText("Melhor utilizar Álcool");
+            }
+
+        }else{
+
+            resultado.setText("Preencha todos os campos.");
+        }
+    }
+
+    public Boolean validarCampos (String pAlcool, String pGasolina){
+        Boolean camposValidados = true;
+
+        if(pAlcool == null || pAlcool.equals("") || pAlcool == "0"){
+            camposValidados = false;
+        }else if(pGasolina == null || pGasolina.equals("") || pGasolina == "0"){
+            camposValidados = false;
+        }
+
+        return camposValidados;
     }
 }
